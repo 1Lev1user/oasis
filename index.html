@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Оазис ящерицы</title>
+  <meta name="theme-color" content="#a8dcea">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="game/shell.css">
+</head>
+<body>
+  <main class="column">
+    <div id="game"></div>
+    <div id="hud"></div>
+  </main>
+  <script src="vendor/phaser.min.js"></script>
+  <script type="module" src="game/main.js"></script>
+  <script>
+    // Offline play: the service worker is optional, any failure is ignored.
+    // Files loaded before the worker took control are not cached by it, so hand it the list once it is active.
+    window.addEventListener('load', () => {
+      try {
+        navigator.serviceWorker.register('sw.js')
+          .then(() => navigator.serviceWorker.ready)
+          .then((reg) => reg.active.postMessage(performance.getEntriesByType('resource').map((e) => e.name)))
+          .catch(() => {});
+      } catch {}
+    });
+  </script>
+</body>
+</html>

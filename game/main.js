@@ -12,6 +12,7 @@ import { Museum } from './scenes/museum.js';
 import { Chest } from './scenes/chest.js';
 import { Campfire } from './scenes/campfire.js';
 import { Settings } from './scenes/settings.js';
+import { Help } from './scenes/help.js';
 import { seedVillage } from './village-view.js';
 import { demoShop } from './workshop-view.js';
 import { demoEnded } from './chest-view.js';
@@ -26,7 +27,7 @@ function fit(scene) {
   scene.cameras.main.setZoom(check.zoom).centerOn(WORLD.w / 2, WORLD.h / 2);
 }
 
-const scenes = [new Boot(), new Oasis(), new Setup(), new Plan(), new Sign(), new Village(), new Workshop(), new Museum(), new Chest(), new Campfire(), new Settings()];
+const scenes = [new Boot(), new Oasis(), new Setup(), new Plan(), new Sign(), new Village(), new Workshop(), new Museum(), new Chest(), new Campfire(), new Settings(), new Help()];
 const onCreate = (scene) => {
   fit(scene);
   if (scene.sys.settings.key !== 'boot' && !scene.leaving) { // an oasis that hands over to the village is not ready

@@ -15,7 +15,7 @@ import { openEnded, owedReminders, transferOwed } from '../chest-view.js';
 import { districts, freePlot, layout, pips, summaryOf, VILLAGE_SPRITES } from '../village-view.js';
 import { sessionContract } from '../money-view.js';
 import { lookOf } from '../workshop-view.js';
-import { el, button, gearButton } from '../hud.js';
+import { el, button, toolIcons } from '../hud.js';
 import { TEXTS } from '../texts/village.js';
 import { TEXTS as MUSEUM } from '../texts/museum.js';
 import { TEXTS as CHEST } from '../texts/chest.js';
@@ -166,7 +166,7 @@ export class Village extends Phaser.Scene {
     const plotBtn = button('b-main px', TEXTS.newHabit, () => this.newHabit());
     const tools = el('div', 'tools');
     tools.append(button('b-small px', MUSEUM.enter, () => this.scene.start('museum')));
-    root.replaceChildren(title, summary, items, chests, owed, note, plotBtn, tools, gearButton(() => this.scene.start('settings')));
+    root.replaceChildren(title, summary, items, chests, owed, note, plotBtn, tools, toolIcons(() => this.scene.start('help', { from: 'village' }), () => this.scene.start('settings')));
     let timer = 0;
     return {
       render: (list, plot, ended, owing) => {

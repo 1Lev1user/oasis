@@ -24,7 +24,7 @@ import { BALANCE } from '../../lib/balance.js';
 import { settlement } from '../../lib/settle.js';
 import { startSession, endSession, elapsed, formatTimer, awayMessageMinutes, sessionFor, modeOf, setLast, formatMeter, barSegments } from '../session.js';
 import { seedDemo, demoMeter } from '../demo.js';
-import { createHud, createBuildPanel, button, el, gearButton } from '../hud.js';
+import { createHud, createBuildPanel, button, el, toolIcons } from '../hud.js';
 import { startSceneFor } from '../village-view.js';
 import { stageUp } from '../museum-view.js';
 import { lookOf, workshopOpen, demoShop } from '../workshop-view.js';
@@ -328,6 +328,7 @@ export class Oasis extends Phaser.Scene {
     this.demoSeeded = false; // true when this load made the demo contract: only then may ?hour=N stand in for the clock
     this.hud = createHud(document.getElementById('hud'), {
       create: () => this.scene.start('setup'),
+      help: () => { if (!this.busy) this.scene.start('help', { from: 'oasis' }); },
       start: () => this.beginSession(),
       mini: () => this.finishStep('mini'),
       already: () => this.finishStep('done'),
@@ -363,9 +364,9 @@ export class Oasis extends Phaser.Scene {
     this.campfireBtn = button('b-small px', CAMPFIRE.enter, () => this.openCampfire());
     this.campfireBtn.hidden = true;
     this.extras.append(this.workshopBtn, this.buildBtn, this.campfireBtn, this.museumBtn);
-    // The gear to the settings (save to a file, load it back): always there, also with no habit, so a saved game can be loaded
-    const gear = gearButton(() => { if (!this.busy) this.scene.start('settings'); });
-    document.getElementById('hud').append(this.extras, this.build.node, gear);
+    // The «?» to the help and the gear to the settings (save to a file, load it back): always there, also with no habit
+    const icons = toolIcons(() => { if (!this.busy) this.scene.start('help', { from: 'oasis', contractId: this.pick }); }, () => { if (!this.busy) this.scene.start('settings'); });
+    document.getElementById('hud').append(this.extras, this.build.node, icons);
     if (!this.registry.get('state')) this.registry.set('state', { contracts: [] });
     if (readParams(location.search).demo) {
       const today = todayKey();

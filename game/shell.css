@@ -261,6 +261,18 @@ select.q-input { padding-right: 36px; background-image: url("data:image/svg+xml,
   mask: var(--gear) center / 20px 20px no-repeat;
 }
 
+/* Help (markup in game/scenes/help.js; the «?» in game/hud.js): the «?» sits beside the gear, the sections are <details> blocks */
+.icons { align-self: flex-end; display: flex; gap: 8px; }
+.help { padding: 0; font-size: 26px; line-height: 1; }
+.link-btn { align-self: center; min-height: 44px; padding: 0 12px; background: none; border: 0; color: var(--green-dk); font-weight: 800; font-size: 16px; text-decoration: underline; text-underline-offset: 3px; }
+.help-item { background: var(--card); border: 3px solid var(--ink); }
+.help-item summary { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; padding: 8px 12px; font-weight: 800; font-size: 16px; line-height: 1.3; cursor: pointer; list-style: none; }
+.help-item summary::-webkit-details-marker { display: none; }
+.help-item summary::after { content: '+'; flex: none; font-family: var(--display); font-size: 24px; line-height: 1; }
+.help-item[open] summary::after { content: '−'; }
+.help-item summary:focus-visible { outline: 3px solid var(--gold-dk); outline-offset: -3px; }
+.help-item p { margin: 0; padding: 0 12px 10px; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
+
 @media (orientation: landscape) and (max-height: 500px) {
   .column {
     flex-direction: row;

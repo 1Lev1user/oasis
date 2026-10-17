@@ -7,6 +7,7 @@ import { TEXTS as VILLAGE } from './texts/village.js';
 import { TEXTS as BUILD } from './texts/build.js';
 import { TEXTS as CHEST } from './texts/chest.js';
 import { TEXTS as SETTINGS } from './texts/settings.js';
+import { TEXTS as HELP } from './texts/help.js';
 
 const MESSAGE_MS = 6000;
 
@@ -31,7 +32,16 @@ export function gearButton(onTap) {
   return b;
 }
 
-// on: { create, start, mini, already, finish, cancel, pay, yesterday, noYesterday, openPause, pause(from, days), quest(id), chest, village,
+// The «?» next to the gear, and the two together as the row at the bottom right (the oasis and the village).
+export function toolIcons(onHelp, onGear) {
+  const help = button('b-small px help', '?', onHelp);
+  help.setAttribute('aria-label', HELP.gear);
+  const row = el('div', 'icons');
+  row.append(help, gearButton(onGear));
+  return row;
+}
+
+// on: { create, help, start, mini, already, finish, cancel, pay, yesterday, noYesterday, openPause, pause(from, days), quest(id), chest, village,
 //   openEnd, transfer(contractId) }.
 // Returns { render, caption, message, timer, busy, openPause, closePause, destroy }.
 export function createHud(root, on) {
@@ -41,6 +51,7 @@ export function createHud(root, on) {
   const mainPoint = el('p', 'hud-point');
   const empty = el('p', 'hud-empty', SETUP.noHabit);
   const createBtn = button('b-main px', SETUP.createHabit, on.create);
+  const helpLink = button('link-btn', HELP.link, on.help); // the empty oasis only: what the game is, before the first habit
   const meterValue = el('span', 'px');
   const gems = el('span', 'gems px');
   const bar = el('div', 'bar');
@@ -206,7 +217,7 @@ export function createHud(root, on) {
     if (refocus && !pauseBtn.hidden) pauseBtn.focus();
   }
 
-  root.replaceChildren(villageBtn, habit, mainPoint, empty, createBtn, meter, comeback, openEndBtn, ending, owed, offer, quests, miss, caption, note, idle, pausedNote, session, debt, doneNote, tools, panel);
+  root.replaceChildren(villageBtn, habit, mainPoint, empty, createBtn, helpLink, meter, comeback, openEndBtn, ending, owed, offer, quests, miss, caption, note, idle, pausedNote, session, debt, doneNote, tools, panel);
 
   let noteTimer = 0;
   let last = null;
@@ -250,7 +261,7 @@ export function createHud(root, on) {
     chestBtn.hidden = mode === 'none' || !view.chest;
     mainPoint.textContent = view.coach?.mainPoint ?? '';
     mainPoint.hidden = mode === 'none' || !mainPoint.textContent;
-    empty.hidden = createBtn.hidden = mode !== 'none';
+    empty.hidden = createBtn.hidden = helpLink.hidden = mode !== 'none';
     meterValue.textContent = view.meterText ?? '';
     bar.setAttribute('aria-label', `${TEXTS.meterLabel} ${view.meterText ?? ''}`);
     segments.forEach((s, i) => s.classList.toggle('on', i < (view.filled ?? 0)));

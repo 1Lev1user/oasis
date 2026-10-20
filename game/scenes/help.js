@@ -5,6 +5,7 @@ import { WORLD, SAFE } from '../scale.js';
 import { keeperFrames, keeperAnim, makeTextures } from '../art/textures.js';
 import { color, applySettings } from '../world.js';
 import { el, button } from '../hud.js';
+import { aboutBlock } from '../about.js';
 import { TEXTS, sections } from '../texts/help.js';
 
 const OY = (WORLD.h - SAFE.h) / 2;
@@ -49,7 +50,7 @@ export class Help extends Phaser.Scene {
       item.append(el('summary', '', s.title), ...s.body.map((line) => el('p', '', line)));
       return item;
     });
-    root.replaceChildren(button('b-small px village-link', TEXTS.back, () => this.back()), el('h2', 'hud-habit px', TEXTS.title), ...items);
+    root.replaceChildren(button('b-small px village-link', TEXTS.back, () => this.back()), el('h2', 'hud-habit px', TEXTS.title), ...items, aboutBlock());
     return { destroy: () => root.replaceChildren() };
   }
 }

@@ -1,0 +1,9 @@
+Copyright (c) 2026 1Lev1user. All rights reserved.
+
+The game may be played at https://1lev1user.github.io/oasis/.
+
+No permission is granted to copy, modify, distribute, publish or host the code, art or texts of this game, in whole or in part, without the author's written permission.
+
+Third-party components keep their own licences:
+- Phaser: MIT licence (vendor/PHASER-LICENSE.txt).
+- Handjet and Nunito fonts: SIL Open Font License 1.1 (vendor/fonts/OFL-Handjet.txt, vendor/fonts/OFL-Nunito.txt).

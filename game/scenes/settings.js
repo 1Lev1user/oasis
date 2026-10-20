@@ -12,6 +12,7 @@ import { DEFAULT_GAME } from '../../lib/game-state.js';
 import { backupName, fileSummary, errorText, replaceState, tooBig } from '../settings-view.js';
 import { startSceneFor } from '../village-view.js';
 import { el, button } from '../hud.js';
+import { aboutBlock } from '../about.js';
 import { TEXTS } from '../texts/settings.js';
 
 const OY = (WORLD.h - SAFE.h) / 2;
@@ -171,7 +172,7 @@ export class Settings extends Phaser.Scene {
     btns.append(button('b-main px', TEXTS.replace, () => this.replace()), button('b-sec px', TEXTS.cancel, () => this.cancel()));
     confirm.append(confirmTitle, lines, el('p', 'debt-note', TEXTS.replaceWarn), btns);
 
-    root.replaceChildren(backBtn, title, ...prefs, data, saveBtn, pick, note, confirm);
+    root.replaceChildren(backBtn, title, ...prefs, data, saveBtn, pick, note, confirm, aboutBlock());
     let timer = 0;
     return {
       message(line) {

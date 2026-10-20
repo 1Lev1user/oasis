@@ -273,6 +273,15 @@ select.q-input { padding-right: 36px; background-image: url("data:image/svg+xml,
 .help-item summary:focus-visible { outline: 3px solid var(--gold-dk); outline-offset: -3px; }
 .help-item p { margin: 0; padding: 0 12px 10px; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
 
+/* About (markup in game/about.js): the author block at the end of the help and settings screens; the two main links are 44 px targets */
+.about { display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 3px dashed var(--muted); }
+.about-line { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.about-name { font-family: var(--display); font-size: 22px; font-weight: 800; }
+.about-links { display: flex; flex-wrap: wrap; column-gap: 16px; }
+.about-links .about-link { display: inline-flex; align-items: center; min-height: 44px; }
+.about-link { color: var(--green-dk); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.about-link:focus-visible { outline: 3px solid var(--gold-dk); outline-offset: 2px; }
+
 @media (orientation: landscape) and (max-height: 500px) {
   .column {
     flex-direction: row;

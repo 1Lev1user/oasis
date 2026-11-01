@@ -1,0 +1,4 @@
+Session log. Append only. The planner (Claude) writes one line per review or planning session.
+
+Format:
+DATE | slice | cards moved | what works now | what is broken | next card

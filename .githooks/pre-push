@@ -1,0 +1,3 @@
+#!/bin/sh
+# Kit gate for every agent: no force push, no app code pushed to main, tests and check:kit pass (scripts/git-hooks.mjs).
+exec node scripts/git-hooks.mjs pre-push "$@"

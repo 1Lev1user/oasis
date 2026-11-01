@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [],
+    "deny": [
+      "Shell(git:push --force*)",
+      "Shell(git:push -f*)",
+      "Shell(git:push*--force*)",
+      "Shell(git:push*--mirror*)",
+      "Shell(git:push*--no-verify*)",
+      "Shell(git:commit*--no-verify*)",
+      "Shell(git:commit -n*)",
+      "Shell(git:merge*--no-verify*)",
+      "Shell(git:config*hooksPath*)",
+      "Shell(git:reset --hard*)",
+      "Shell(git:clean*-f*)",
+      "Shell(gh:pr merge*)",
+      "Shell(gh:api*merge*)",
+      "Shell(gh:repo delete*)",
+      "Shell(ao:spawn*)",
+      "Shell(ao:pr merge*)",
+      "Shell(rm:-r*)",
+      "Shell(rm:-f*)",
+      "Shell(Remove-Item:*-Recurse*)",
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.env.*.local)"
+    ]
+  }
+}

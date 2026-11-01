@@ -1,0 +1,13 @@
+{
+  "testCommand": "npm run test:kit",
+  "ciCommand": "",
+  "testPattern": "^test/",
+  "scanSkip": [],
+  "readyFrom": 1,
+  "securityPaths": [
+    ".github/",
+    ".githooks/",
+    "scripts/",
+    ".env"
+  ]
+}

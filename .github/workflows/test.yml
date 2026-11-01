@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: if [ -f package-lock.json ]; then npm ci; fi
+      # Gates run with node directly, never through npm scripts: a card may edit package.json (process/agents.md).
+      - run: node --test "test/kit/*.test.mjs"
+      - run: node scripts/check-kit.mjs
+      # Local git hooks can be skipped with --no-verify; the secret scan runs here for every agent.
+      - run: node scripts/git-hooks.mjs scan
+      # The project's own checks from kit.config.json: testCommand, then ciCommand (lint, type check, build).
+      - run: node scripts/git-hooks.mjs ci
+      # Card branches (card/C-NNN-...) may change only the card's allowed_paths. The guard itself and the card come from
+      # the base branch, so a pull request can loosen neither.
+      - name: Card guard
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'card/')
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git worktree add --detach ../base "origin/$BASE_REF"
+          node ../base/scripts/check-card.mjs --base "origin/$BASE_REF" --head "$HEAD_SHA" --branch "$HEAD_REF"

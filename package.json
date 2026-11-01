@@ -1,0 +1,14 @@
+{
+  "name": "oasis",
+  "private": true,
+  "scripts": {
+    "setup": "git config core.hooksPath .githooks",
+    "check:kit": "node scripts/check-kit.mjs",
+    "check:card": "node scripts/check-card.mjs",
+    "board": "node scripts/board.mjs",
+    "dispatch": "node scripts/dispatch.mjs",
+    "merge": "node scripts/merge.mjs",
+    "advise": "node scripts/advise.mjs",
+    "test:kit": "node --test \"test/kit/*.test.mjs\""
+  }
+}
